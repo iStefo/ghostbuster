@@ -193,6 +193,13 @@ This callback will be called with the number of matching DOM elements for this s
 
 The callback will be called for each matching DOM element for the selector. It will only be called if the number of matching elements is equal to `count`. The arguments supplied to the callback is the DOM element and the index (starting at 0). The callback must return `true` if this assertion is met.
 
+### assertFunction
+
+*Arguments*: function, [options]
+
+This assertion will execute the given function object within the context of the page, so you can access local variables and functions. Any return value that can be interpreted as positive (`true`, `1`, `{}`, `[]`) will let this assertion succeed. Any negative return value will let it fail (`false`, `0`, `null`, `undefined`).
+To fail with a custom error message, simply throw an exception, it will be caught and displayed. Please note that it's currently *not possible to assert async functions*.
+
 ## Before and After
 
 You can add an arbitrary number of before and after blocks to be run within the context of your test. Simply call `before` and `after` on your test to add them. You have to call @succeed in the before block to continue processing your test.
