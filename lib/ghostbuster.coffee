@@ -339,6 +339,27 @@ class Body
       "
       withValue @page.evaluate(evaluator)
 
+  assertFunction: (assertionFunction, opts) ->
+    opts ||= {}
+    test = @test
+    @test.assert opts, (withValue) ->
+      assertionDescription = if opts.name then "\"#{opts.name}\"" else "for unnamed function"
+      eval "
+        var fn = function() {
+          try {
+            var result = (#{assertionFunction.toString()})();
+            if (!result) {
+              alert('Assert #{assertionDescription} returned negative result: ' + result);
+            }
+            return !!result;
+          } catch (e) {
+            alert('Assert #{assertionDescription} encountered an unexpected error: '+e);
+            return false;
+          }
+        };
+      "
+      withValue @page.evaluate fn;
+
   assertCountAndAll: (selector, count, opts, assertionCallback) ->
     @assertCount selector, opts, (c) -> c == count
     @assertAll selector, opts, assertionCallback

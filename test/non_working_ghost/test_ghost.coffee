@@ -31,3 +31,13 @@ phantom.test.addPending "To a non existent page", ->
 phantom.test.add "To an invalid URL", ->
   @get 'http://127.0.0.1:this-url-is-invalid', ->
     @succeed()
+
+phantom.test.add "Function assertion with negative result", ->
+  @get '/', ->
+    @body.assertFunction -> false
+    @succeed()
+
+phantom.test.add "Function assertion with exception", ->
+  @get '/', ->
+    @body.assertFunction -> throw new Error 'This has to fail.'
+    @succeed()

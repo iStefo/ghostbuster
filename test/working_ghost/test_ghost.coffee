@@ -54,3 +54,13 @@ phantom.test.add "Click follow with positive case", ->
     @body.clickFollow 'a', path: "/form"
     @succeed()
 
+phantom.test.add "Function assertion", ->
+  @get '/', ->
+    @body.assertFunction ->
+      test1 = 'foo'                 # usage of '' and "" ok
+      test2 = "afoo".substr 1, 3
+      test1 == test2                # return bool
+    @body.assertFunction -> 2 + 3   # return non-0-number
+    @body.assertFunction -> {}      # return object
+    @body.assertFunction -> []      # return array
+    @succeed()

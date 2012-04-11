@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'thin',    '~> 1.2.11'
   s.add_development_dependency 'rake',    '~> 0.8.7'
-  s.add_development_dependency 'bundler', '~> 1.0.14'
+  s.add_development_dependency 'bundler', '> 1.0.14'
   s.add_development_dependency 'sinatra'
 end
